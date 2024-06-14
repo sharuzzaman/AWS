@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  RDSInstanceMaster:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceClass: db.t2.micro
+      Engine: mariadb
+      MasterUsername: masteruser
+      MasterUserPassword: masterpassword
+      DBSubnetGroupName: !Ref DBSubnetGroup
+
+  RDSInstanceReplica:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceClass: db.t2.micro
+      Engine: mariadb
+      SourceDBInstanceIdentifier: !Ref RDSInstanceMaster
+
+  DBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: Subnet group for RDS instances
+      SubnetIds:
+        - !Ref PublicSubnet1
+        - !Ref PrivateSubnet1
+
+Parameters:
+  VPCId:
+    Type: String
+  PublicSubnet1:
+    Type: String
+  PrivateSubnet1:
+    Type: String

@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 192.168.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: MyVPC
+
+Outputs:
+  VPCId:
+    Description: The VPC ID
+    Value: !Ref VPC
+  PublicSubnet1:
+    Description: The first public subnet ID
+    Value: !Ref PublicSubnet1
+  PrivateSubnet1:
+    Description: The first private subnet ID
+    Value: !Ref PrivateSubnet1

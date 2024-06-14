@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  EC2InstanceSSM:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      SubnetId: !Ref PublicSubnet1
+      ImageId: ami-12345678
+      KeyName: my-key
+      Tags:
+        - Key: Name
+          Value: SSMHost
+
+  EC2InstanceServer:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      SubnetId: !Ref PrivateSubnet1
+      ImageId: ami-12345678
+      KeyName: my-key
+      Tags:
+        - Key: Name
+          Value: Server
+
+Parameters:
+  VPCId:
+    Type: String
+  PublicSubnet1:
+    Type: String
+  PrivateSubnet1:
+    Type: String
